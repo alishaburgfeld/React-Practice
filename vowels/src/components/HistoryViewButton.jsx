@@ -2,7 +2,7 @@ function HistoryViewButton(props) {
 
     return (
         <div>
-            <button onClick={props.changeHistory}>View History</button>
+            <button onClick={props.showHistory()}>View History</button>
 
         </div>
     )

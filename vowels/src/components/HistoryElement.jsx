@@ -2,9 +2,11 @@ function HistoryElement(props) {
 
     return (
         <div>
-            <ul>
-            {props.historyValue}
-            </ul>
+            if ({props.display}) {
+                <ul>
+                {props.renderHistory()}
+                </ul>
+            }
         </div>
         )
 }

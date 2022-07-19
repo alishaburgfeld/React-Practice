@@ -10,6 +10,7 @@ function MyComponent() {
 
     const [message, setMessage] = useState([]);
     const [history, setHistory] = useState([]);
+    const [display, setDisplay] = useState(false);
     const [counter, setCounter] = useState(0);
 
     const getInput=(evt) => {
@@ -38,13 +39,18 @@ function MyComponent() {
     
     // I'm trying to create a function that will make a list of each input, then I want to call that function on button click display it in a list
     // Here is the function I'm trying to use to make the list, and "HistoryElement" is where I'm trying to display it
-    const changeHistory= ()=> {
+    const renderHistory= ()=> {
         let elements = []
         for (let i=0; i< history.length;i++) {
             elements.push(<li id={`${i}`} key={`${i}`}>{history[i]}</li>)
         }
-        setHistory(elements)
+        return (elements)
     }
+
+    const showHistory = () => {
+        setDisplay(!display)
+    }
+
 
     
     return (
@@ -52,8 +58,8 @@ function MyComponent() {
             <InputAndSubmitForm clickFunction={getInput}/>
             <DisplayElement value={message}/>
             <VowelCounter vowelCount={counter}/>
-            <HistoryViewButton changeHistory={changeHistory()} />
-            <HistoryElement historyValue={history}/>
+            <HistoryViewButton showHistory = {showHistory()} />
+            <HistoryElement renderHistory={renderHistory()} display= {display}/>
         </div>
     )
 
