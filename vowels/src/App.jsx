@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import MyComponent from './components/MyComponent'
+// import MyComponent from './components/MyComponent'
+import Detention from './components/Detention'
 
+{/* <MyComponent/>  */}
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <div className="App">
       <h1>Heya!</h1>
-      <MyComponent/>
-       
+      
+      <Detention/>
     </div>
   )
 }
