@@ -1,73 +1,31 @@
 import { useState } from 'react'
 import './App.css'
 import words from '../data/words.json'
+import UserInput from './components/UserInput'
+import GuessedWord from './components/GuessedWord'
+
+const answer = words[Math.floor(Math.random() * words.length)]
+  
 
 function App() {
-  const [puzzle, setPuzzle] = useState("")
+  const [puzzle, setPuzzle] = useState(()=>{
+  let allUnderscores = ""
+    for (let i=0;i<answer.length;i++) {
+     allUnderscores += "_"
+    }
+  return allUnderscores})
+
+    
   const [availableLetters, setAvailableLetters] = useState("abcdefghijklmnopqrstuvwxyz")
+  console.log(`Puzzle at line 13 app.jsx is ${puzzle}`)
+  console.log(`answer at line 14 app.jsx is ${answer}`)
 
-  const answer = words[getRandomWord()]
-
-  function getRandomWord() {
-    return Math.floor(Math.random() * words.length);
-  }
-
-  const clickHandler = () => {
-
-    console.log(answer)
-
-
-    let allUnderscores = ""
-    let workingWord = ""
-    
-    for (let char of answer) {
-      allUnderscores += "_  "
-      workingWord += "_"
-    }
-
-
-    setPuzzle(allUnderscores)
-    
-
-    let guessedLetter = document.getElementById('guess').value
-
-    if(guessedLetter.length !== 1) {
-      window.alert("Please enter a single letter")
-    } 
-
-    console.log(availableLetters)
-
-    
-    if (answer.includes(guessedLetter)) {
-      setAvailableLetters(prevAvailableLetters => prevAvailableLetters.replace(guessedLetter, ""))
-      console.log(availableLetters)
-      
-    }
-    
-    
-  }
-  
-  function updateWord(word, letter) {
-    let updatedWord = ""
-
-    for (let i = 0; i < word.length; i++) {
-
-      if(word[i] == letter) {
-        updatedWord += word[i]
-      } else {
-        updatedWord += "_"
-      }
-    }
-
-    return updatedWord
-  }
 
   return (
     <div className="App">
       <h2>Available letters: {availableLetters}</h2>
-      <input id="guess" type='text' placeholder='Guess a letter' />
-      <button onClick={clickHandler}>Guess</button>
-      <h2>Your word: {puzzle}</h2>
+      <UserInput answer={answer} availableLetters= {availableLetters} setAvailableLetters={setAvailableLetters} puzzle={puzzle} setPuzzle={setPuzzle}/>
+      <GuessedWord puzzle={puzzle}/>
     </div>
   )
 }
