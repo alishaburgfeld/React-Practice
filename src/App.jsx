@@ -1,32 +1,59 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import words from '../data/words.json'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [puzzle, setPuzzle] = useState(words[getRandomWord()])
+  const [guessedLetters, setGuessedLetters] = useState([])
+  // const [availableLetters, setAvailableLetters] = useState("abcdefghijklmnopqrstuvwxyz".split(""))
+  const [availableLetters, setAvailableLetters] = useState("abcdefghijklmnopqrstuvwxyz")
+
+  function getRandomWord() {
+    return Math.floor(Math.random() * words.length);
+  }
+
+  // const availableLetters = "abcdefghijklmnopqrstuvwxyz".split("")
+  const clickHandler = () => {
+
+    const maskedWord = () => {
+
+      let returnValue = ""
+      for (let char of puzzle) {
+        returnValue += "_"
+      }
+    }
+
+    let guessedLetter = document.getElementById('guess').value
+
+    if(guessedLetter.length !== 1) {
+      window.alert("Please enter a single letter")
+    } 
+
+    console.log(availableLetters)
+
+    if (puzzle.includes(guessedLetter)) {
+      let target = availableLetters.indexOf(guessedLetter)
+      // availableLetters.splice(target, 1)
+      setAvailableLetters(prevAvailableLetters => prevAvailableLetters.replace(guessedLetter, ""))
+      console.log(availableLetters)
+    }
+    
+    // console.log(variable.value)
+    
+  }
+
+  
+
+    
+  
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h2>Available letters: {availableLetters}</h2>
+      <input id="guess" type='text' placeholder='Guess a letter' />
+      <button onClick={clickHandler}>Guess</button>
+      <h2>Your word: {puzzle}</h2>
     </div>
   )
 }
