@@ -1,28 +1,33 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import words from '../data/words.json'
 
 function App() {
-  const [puzzle, setPuzzle] = useState(words[getRandomWord()])
-  const [guessedLetters, setGuessedLetters] = useState([])
-  // const [availableLetters, setAvailableLetters] = useState("abcdefghijklmnopqrstuvwxyz".split(""))
+  const [puzzle, setPuzzle] = useState("")
   const [availableLetters, setAvailableLetters] = useState("abcdefghijklmnopqrstuvwxyz")
+
+  const answer = words[getRandomWord()]
 
   function getRandomWord() {
     return Math.floor(Math.random() * words.length);
   }
 
-  // const availableLetters = "abcdefghijklmnopqrstuvwxyz".split("")
   const clickHandler = () => {
 
-    const maskedWord = () => {
+    console.log(answer)
 
-      let returnValue = ""
-      for (let char of puzzle) {
-        returnValue += "_"
-      }
+
+    let allUnderscores = ""
+    let workingWord = ""
+    
+    for (let char of answer) {
+      allUnderscores += "_  "
+      workingWord += "_"
     }
+
+
+    setPuzzle(allUnderscores)
+    
 
     let guessedLetter = document.getElementById('guess').value
 
@@ -32,21 +37,30 @@ function App() {
 
     console.log(availableLetters)
 
-    if (puzzle.includes(guessedLetter)) {
-      let target = availableLetters.indexOf(guessedLetter)
-      // availableLetters.splice(target, 1)
+    
+    if (answer.includes(guessedLetter)) {
       setAvailableLetters(prevAvailableLetters => prevAvailableLetters.replace(guessedLetter, ""))
       console.log(availableLetters)
+      
     }
     
-    // console.log(variable.value)
     
   }
-
   
+  function updateWord(word, letter) {
+    let updatedWord = ""
 
-    
-  
+    for (let i = 0; i < word.length; i++) {
+
+      if(word[i] == letter) {
+        updatedWord += word[i]
+      } else {
+        updatedWord += "_"
+      }
+    }
+
+    return updatedWord
+  }
 
   return (
     <div className="App">
