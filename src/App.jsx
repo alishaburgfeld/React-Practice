@@ -15,7 +15,7 @@ function App() {
     }
   return allUnderscores})
 
-    
+
   const [availableLetters, setAvailableLetters] = useState("abcdefghijklmnopqrstuvwxyz")
   console.log(`Puzzle at line 13 app.jsx is ${puzzle}`)
   console.log(`answer at line 14 app.jsx is ${answer}`)
@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       <h2>Available letters: {availableLetters}</h2>
       <UserInput answer={answer} availableLetters= {availableLetters} setAvailableLetters={setAvailableLetters} puzzle={puzzle} setPuzzle={setPuzzle}/>
-      <GuessedWord puzzle={puzzle}/>
+      <GuessedWord puzzle={puzzle} answer={answer}/>
     </div>
   )
 }
